@@ -18,6 +18,8 @@ Since we have standardized denominations described in `Bill` and `Coin` enums, g
 
 * Renamed `change` to `register` to better reflect the nature of money there
   * This was a private property anyways, so no breaking changes
+* Needed to update the `:cashregiser` build.gradle to use the Java 21 version
+  * Received a compile error otherwise
 
 ## Links, sources
 [1] The Greedy Coin Change Problem - https://arxiv.org/pdf/2411.18137v1
