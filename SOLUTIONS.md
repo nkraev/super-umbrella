@@ -14,5 +14,10 @@ It would definitely fail with arbitrary monetary values, e.g.
 Here comes the nice part though - for the majority of real world currencies and denominations, greedy algorithm works just fine. [1]
 Since we have standardized denominations described in `Bill` and `Coin` enums, greedy solution will be sufficient.  
 
+### Implementation notes
+
+* Renamed `change` to `register` to better reflect the nature of money there
+  * This was a private property anyways, so no breaking changes
+
 ## Links, sources
 [1] The Greedy Coin Change Problem - https://arxiv.org/pdf/2411.18137v1
