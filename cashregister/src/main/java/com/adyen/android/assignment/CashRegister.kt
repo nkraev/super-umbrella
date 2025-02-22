@@ -28,6 +28,10 @@ class CashRegister(private val registry: Change) {
             throw TransactionException("E001: Amount paid is less than the price")
         }
 
+        // starting with adding amount paid to registry
+        // e.g. if user pays with 5*20 for 70 price, we can immediately return 20
+        addClientChangeToRegistry(amountPaid)
+
         return calculateChange(price, amountPaid)
     }
 
@@ -35,9 +39,6 @@ class CashRegister(private val registry: Change) {
     // Memory complexity is O(1) - no additional memory is allocated
     // (That's actually even better than a DP solution, which would require O(n) memory)
     private fun calculateChange(price: Long, amountPaid: Change): Change {
-        // starting with adding amount paid to registry
-        // e.g. if user pays with 5*20 for 70 price, we can immediately return 20
-        addClientChangeToRegistry(amountPaid)
         val elements = registry.getElements().reversed() // from the biggest to the lowest
         val change = Change() // this is the change that will be returned
 
