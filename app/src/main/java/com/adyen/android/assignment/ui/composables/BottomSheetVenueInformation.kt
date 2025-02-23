@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.adyen.android.assignment.model.Position
 import com.adyen.android.assignment.model.Venue
 import com.adyen.android.assignment.model.VenueCategory
 
@@ -72,6 +73,7 @@ fun BottomSheetVenueInformationPreview() {
         ),
         distance = 79,
         timezone = "Europe/Amsterdam",
+        position = Position(52.379189, 4.899431),
       )
     )
   }

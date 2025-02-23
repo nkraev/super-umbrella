@@ -24,7 +24,7 @@ class ResultToVenueCategoryEntityMapperTest {
         )
       ),
       distance = 78,
-      geocode = null,
+      geocodes = null,
       location = com.adyen.android.assignment.api.model.Location(
         address = "Stationsplein 15",
         country = "NL",
@@ -56,7 +56,7 @@ class ResultToVenueCategoryEntityMapperTest {
     val result = Result(
       categories = emptyList(),
       distance = 150,
-      geocode = null,
+      geocodes = null,
       location = com.adyen.android.assignment.api.model.Location(
         address = "Teststraat 1",
         country = "BE",

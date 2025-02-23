@@ -12,6 +12,7 @@ data class VenueEntity(
   @PrimaryKey val name: String,
   val timezone: String,
   val categoryId: String,
+  val position: String, // lat;lng
   val registryBalance: Long, // in minor monetary unit (cents, pence, etc.)
 )
 

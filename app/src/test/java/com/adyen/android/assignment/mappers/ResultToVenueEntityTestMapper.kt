@@ -37,7 +37,7 @@ class ResultToVenueEntityMapperTest {
         )
       ),
       distance = 78,
-      geocode = null,
+      geocodes = null,
       location = Location(
         address = "Stationsplein 15",
         country = "NL",
@@ -73,7 +73,7 @@ class ResultToVenueEntityMapperTest {
     val result = Result(
       categories = emptyList(),
       distance = 150,
-      geocode = null,
+      geocodes = null,
       location = Location(
         address = "Teststraat 1",
         country = "BE",

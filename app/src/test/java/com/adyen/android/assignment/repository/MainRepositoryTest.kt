@@ -4,8 +4,10 @@ import com.adyen.android.assignment.api.PlacesService
 import com.adyen.android.assignment.api.VenueRecommendationsQueryBuilder
 import com.adyen.android.assignment.api.exceptions.FetchVenueException
 import com.adyen.android.assignment.api.model.Category
+import com.adyen.android.assignment.api.model.GeoCode
 import com.adyen.android.assignment.api.model.Icon
 import com.adyen.android.assignment.api.model.Location
+import com.adyen.android.assignment.api.model.Main
 import com.adyen.android.assignment.api.model.ResponseWrapper
 import com.adyen.android.assignment.api.model.Result
 import com.adyen.android.assignment.db.VenueCategoryEntity
@@ -119,7 +121,12 @@ class MainRepositoryTest {
         )
       ),
       distance = 78,
-      geocode = null,
+      geocodes = GeoCode(
+        main = Main(
+          latitude = 52.379189,
+          longitude = 4.899431
+        )
+      ),
       location = Location(
         address = "Stationsplein 15",
         country = "NL",
@@ -138,7 +145,8 @@ class MainRepositoryTest {
       name = "",
       timezone = "",
       categoryId = "",
-      registryBalance = 0
+      registryBalance = 0,
+      position="52.379189;4.899431"
     )
     val venueCategoryEntity = VenueCategoryEntity(id = "", icon = "", type = "")
     val venue = Venue(
@@ -146,7 +154,8 @@ class MainRepositoryTest {
       location = "",
       distance = 100,
       timezone = "",
-      category = VenueCategory(id = "", icon = "", type = "")
+      category = VenueCategory(id = "", icon = "", type = ""),
+      position = Position(52.379189, 4.899431)
     )
 
     val mockCall = mockk<Call<ResponseWrapper>>()
@@ -193,7 +202,8 @@ class MainRepositoryTest {
       name = "",
       timezone = "",
       categoryId = "",
-      registryBalance = 0
+      registryBalance = 0,
+      position = "23.33;45.66"
     )
     val venueCategoryEntity = VenueCategoryEntity(id = "", icon = "", type = "")
 
@@ -202,7 +212,8 @@ class MainRepositoryTest {
       location = "",
       distance = 100,
       timezone = "",
-      category = VenueCategory(id = "", icon = "", type = "")
+      category = VenueCategory(id = "", icon = "", type = ""),
+      position = Position(23.33, 45.66)
     )
 
     every { systemTimeProvider() } returns currentTime

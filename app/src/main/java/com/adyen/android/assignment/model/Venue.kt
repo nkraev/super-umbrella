@@ -7,6 +7,7 @@ data class Venue(
   val category: VenueCategory,
   val distance: Int,
   val location: String,
+  val position: Position,
   val name: String,
   val timezone: String,
 )

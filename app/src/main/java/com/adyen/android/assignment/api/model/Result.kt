@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 data class Result(
     val categories: List<Category>,
     val distance: Int,
-    val geocode: GeoCode?,
+    val geocodes: GeoCode?,
     val location: Location,
     val name: String,
     val timezone: String,
