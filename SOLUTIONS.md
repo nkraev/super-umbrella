@@ -55,6 +55,7 @@ Dependency injection - N/A
 ### Implementation notes
 
 * Ran an AGP upgrade since it makes sense to start a new app on a new version
+* Ideally we'd want to separate domain entities from the view state entities, but this app doesn't follow it everywhere
 
 ## Links, sources
 [1] The Greedy Coin Change Problem - https://arxiv.org/pdf/2411.18137v1
