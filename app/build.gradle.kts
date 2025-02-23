@@ -64,6 +64,7 @@ dependencies {
 
     implementation (libs.retrofit)
     implementation (libs.converter.moshi)
+    implementation(libs.maps.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
