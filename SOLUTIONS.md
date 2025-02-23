@@ -52,6 +52,9 @@ Dependency injection - N/A
   * It's a very small app, so we'll skip it for now
   * Worst case we'll do a service locator pattern
 
+### Implementation notes
+
+* Ran an AGP upgrade since it makes sense to start a new app on a new version
 
 ## Links, sources
 [1] The Greedy Coin Change Problem - https://arxiv.org/pdf/2411.18137v1
