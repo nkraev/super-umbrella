@@ -66,6 +66,7 @@ dependencies {
   implementation(libs.androidx.room.ktx)
   implementation(libs.androidx.datastore.preferences)
   implementation(libs.coil.compose)
+  implementation(libs.coil.network.okhttp)
 
   implementation(libs.retrofit)
   implementation(libs.converter.moshi)
