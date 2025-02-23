@@ -62,12 +62,16 @@ dependencies {
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
   implementation(libs.androidx.material3)
+  implementation(libs.androidx.room.runtime)
+  implementation(libs.androidx.room.ktx)
+  implementation(libs.androidx.datastore.preferences)
 
   implementation(libs.retrofit)
   implementation(libs.converter.moshi)
   implementation(libs.maps.compose)
 
   ksp(libs.moshi.kotlin.codegen)
+  ksp(libs.androidx.room.compiler)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
