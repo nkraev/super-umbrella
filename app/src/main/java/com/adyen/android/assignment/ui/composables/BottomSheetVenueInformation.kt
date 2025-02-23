@@ -23,9 +23,9 @@ import com.adyen.android.assignment.model.VenueCategory
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetVenueInformation(venue: Venue) {
+fun BottomSheetVenueInformation(venue: Venue, onDismiss: () -> Unit) {
   ModalBottomSheet(
-    onDismissRequest = { /* do nothing */ },
+    onDismissRequest = onDismiss,
   ) {
     BottomSheetContents(venue)
   }

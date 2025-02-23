@@ -7,7 +7,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,17 +14,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.adyen.android.assignment.model.Venue
+import com.adyen.android.assignment.ui.composables.utils.mapVenuesToMarker
 import com.adyen.android.assignment.viewmodel.MainViewModel
 import com.adyen.android.assignment.viewmodel.MainViewState
-import com.adyen.android.assignment.viewmodel.VenuesState
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.ComposeMapColorScheme
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
-import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.google.maps.android.compose.rememberUpdatedMarkerState
 
 @Composable
 fun MainReadyComposable(ready: MainViewState.Ready, viewModel: MainViewModel) {
@@ -33,22 +31,21 @@ fun MainReadyComposable(ready: MainViewState.Ready, viewModel: MainViewModel) {
   var mapIsReady by remember { mutableStateOf(false) }
   var selectedVenue by remember { mutableStateOf<Venue?>(null) }
   val markers = remember(ready.venues) {
-    if (ready.venues !is VenuesState.Loaded) return@remember emptyList()
-    val venues = ready.venues.venues
-    if (venues.isEmpty()) return@remember emptyList()
-    venues.map { venue ->  }
+    mapVenuesToMarker(ready.venues) { venue ->
+      selectedVenue = venue
+    }
   }
 
   LaunchedEffect(mapIsReady) {
     if (!mapIsReady) return@LaunchedEffect
     cameraPositionState.animate(
-      update = CameraUpdateFactory.newLatLngZoom(ready.position, 12f),
+      update = CameraUpdateFactory.newLatLngZoom(ready.position, 16f),
       durationMs = 1000,
     )
   }
 
   if (selectedVenue != null) {
-    BottomSheetVenueInformation(venue = selectedVenue!!)
+    BottomSheetVenueInformation(venue = selectedVenue!!, onDismiss = { selectedVenue = null })
   }
 
   Scaffold(
@@ -71,7 +68,8 @@ fun MainReadyComposable(ready: MainViewState.Ready, viewModel: MainViewModel) {
     ) {
       markers.map { marker ->
         Marker(
-
+          state = rememberUpdatedMarkerState(position = marker.position),
+          onClick = { _ -> marker.onClick(); true },
         )
       }
     }
