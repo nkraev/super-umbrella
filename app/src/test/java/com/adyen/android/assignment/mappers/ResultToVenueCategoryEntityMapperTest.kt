@@ -38,7 +38,7 @@ class ResultToVenueCategoryEntityMapperTest {
     )
 
     val expectedId = "19047"
-    val expectedIcon = "https://ss3.4sqi.net/img/categories_v2/travel/trainstation_88.png"
+    val expectedIcon = "https://ss3.4sqi.net/img/categories_v2/travel/trainstation_bg_88.png"
     val expectedType = "Rail Station"
 
     // Act

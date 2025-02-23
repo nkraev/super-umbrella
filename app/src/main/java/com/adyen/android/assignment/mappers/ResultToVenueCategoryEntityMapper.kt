@@ -9,7 +9,7 @@ class ResultToVenueCategoryEntityMapper {
     return VenueCategoryEntity(
       id = category?.id ?: "",
       icon = category?.let {
-        it.icon.prefix + "88" + it.icon.suffix
+        it.icon.prefix + "bg_88" + it.icon.suffix
       } ?: "",
       type = category?.name ?: ""
     )
