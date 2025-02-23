@@ -3,6 +3,7 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.secrets.gradle.plugin)
+  alias(libs.plugins.ksp)
 }
 
 java {
@@ -65,6 +66,8 @@ dependencies {
   implementation(libs.retrofit)
   implementation(libs.converter.moshi)
   implementation(libs.maps.compose)
+
+  ksp(libs.moshi.kotlin.codegen)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)

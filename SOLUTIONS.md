@@ -56,6 +56,8 @@ Dependency injection - N/A
 
 * Ran an AGP upgrade since it makes sense to start a new app on a new version
 * Ideally we'd want to separate domain entities from the view state entities, but this app doesn't follow it everywhere
+* Fetching location and venues should ideally be a responsibility of separate `DataSource`s and repository would just aggregate them
+  * We'll skip it for now
 
 ## Links, sources
 [1] The Greedy Coin Change Problem - https://arxiv.org/pdf/2411.18137v1

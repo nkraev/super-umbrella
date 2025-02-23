@@ -25,6 +25,7 @@ class MainActivity : ComponentActivity() {
       AppTheme {
         MainActivityComposable(
           state = state,
+          viewModel = viewModel,
         )
       }
     }
@@ -32,9 +33,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainActivityComposable(state: MainViewState) {
+fun MainActivityComposable(state: MainViewState, viewModel: MainViewModel) {
   when (state) {
-    is MainViewState.Ready -> MainReadyComposable(state)
+    is MainViewState.Ready -> MainReadyComposable(state, viewModel)
     is MainViewState.Loading -> MainLoadingComposable()
   }
 }
