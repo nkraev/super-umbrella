@@ -15,7 +15,7 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "FOURSQUARE_BASE_URL", "\"https://api.foursquare.com/v3/\"")
-        buildConfigField("String", "API_KEY", "\"<YOU_API_KEY_GOES_HERE>\"")
+        buildConfigField("String", "API_KEY", "\"YOUR_API_KEY_HERE\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
