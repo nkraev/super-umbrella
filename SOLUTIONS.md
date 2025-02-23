@@ -55,7 +55,9 @@ Dependency injection - N/A
 ### Implementation notes
 
 * Ran an AGP upgrade since it makes sense to start a new app on a new version
-* Ideally we'd want to separate domain entities from the view state entities, but this app doesn't follow it everywhere
+* Ideally we'd want to separate domain entities from the view state entities / db entities, but this app doesn't follow it everywhere
+  * Good example is `Venue` entity, which is used in all layers
+  * Good solution would be to have `VenueEntity` for db, `VenueViewState` for view and `Venue` for domain and map between them
 * Fetching location and venues should ideally be a responsibility of separate `DataSource`s and repository would just aggregate them
   * We'll skip it for now
 
