@@ -16,7 +16,7 @@ interface PlacesService {
      *
      * See [the docs](https://developer.foursquare.com/reference/places-nearby)
      */
-    @Headers("Authorization: ${BuildConfig.API_KEY}")
+    @Headers("Authorization: ${BuildConfig.FOURSQUARE_API_KEY}")
     @GET("places/nearby")
     fun getVenueRecommendations(@QueryMap query: Map<String, String>): Call<ResponseWrapper>
 
