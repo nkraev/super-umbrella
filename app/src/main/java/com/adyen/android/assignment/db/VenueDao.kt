@@ -9,7 +9,7 @@ import androidx.room.Transaction
 @Dao
 interface VenueDao {
   @Transaction
-  @Query("SELECT * FROM VenueEntityCategory")
+  @Query("SELECT * FROM VenueEntity")
   fun getAll(): List<VenueEntityCategory>
 
   @Insert(entity = VenueEntity::class, onConflict = OnConflictStrategy.REPLACE)

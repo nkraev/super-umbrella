@@ -22,7 +22,6 @@ data class VenueCategoryEntity(
   val type: String,
 )
 
-@Entity
 data class VenueEntityCategory(
   @Embedded val venue: VenueEntity,
   @Relation(
