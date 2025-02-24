@@ -4,6 +4,8 @@
 
 Please don't forget to add `secrets.properties` file to the root of the project.
 
+And it's better to review this commit-by-commit, i preserved a nice history :)
+
 -----------------------------
 
 This repository contains the coding challenge for candidates applying for a Senior Android role at Adyen.
