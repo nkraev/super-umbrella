@@ -66,6 +66,23 @@ class MainViewModel(
           }
         }
     }
+
+    viewModelScope.launch {
+      repository
+        .listenToLocationUpdates()
+        .collectLatest {
+          val position = mapper.map(it)
+          println(">> Position is set in viewmodel: $position")
+          _state.value = MainViewState.Ready(position)
+
+          repository.getVenues().fold(
+            onSuccess = { venues ->
+              _state.value = MainViewState.Ready(position, VenuesState.Loaded(venues))
+            },
+            onFailure = { /* TODO: error handling */ }
+          )
+        }
+    }
   }
 
   fun userAllowedToRequestPermissions() {

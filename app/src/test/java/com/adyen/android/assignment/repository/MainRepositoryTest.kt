@@ -97,15 +97,6 @@ class MainRepositoryTest {
   }
 
   @Test
-  fun `getUserLocation returns correct location`() = runTest {
-    // Act
-    val location = repository.getUserLocation()
-
-    // Assert
-    assertEquals(Position(52.379189, 4.899431), location)
-  }
-
-  @Test
   fun `getVenues fetches from API and saves when interval exceeded`() = runTest {
     // Arrange
     val currentTime = 15 * 60 * 1000L // 15 minutes

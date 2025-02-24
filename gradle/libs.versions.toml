@@ -16,6 +16,7 @@ jetbrainsKotlinJvm = "2.0.10"
 mapsCompose = "6.4.4"
 mockk = "1.13.16"
 moshiKotlinCodegen = "1.15.2"
+playServicesLocation = "21.3.0"
 retrofit = "2.11.0"
 roomRuntime = "2.6.1"
 secretsGradlePlugin = "2.0.1"
@@ -46,6 +47,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 moshi-kotlin-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshiKotlinCodegen" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]

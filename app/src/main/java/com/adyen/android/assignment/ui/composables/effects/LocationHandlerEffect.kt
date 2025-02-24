@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Location
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
@@ -14,12 +15,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.adyen.android.assignment.viewmodel.LocationEvents
 import com.adyen.android.assignment.viewmodel.LocationViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun PermissionsCheckEffect(
+fun LocationHandlerEffect(
   viewModel: LocationViewModel,
   activity: Activity,
+  fusedLocationProviderClient: FusedLocationProviderClient,
 ) {
 
   fun onResult(permissionGranted: Boolean) {
@@ -30,6 +33,19 @@ fun PermissionsCheckEffect(
       ) -> viewModel.onShowLocationPermissionRationale()
 
       else -> viewModel.onLocationPermissionResolved(false)
+    }
+  }
+
+  fun getLastLocation() {
+    try {
+      fusedLocationProviderClient.lastLocation.addOnSuccessListener { location: Location? ->
+        if (location != null) {
+          // Use the location data
+          viewModel.onLocationUpdated(location)
+        }
+      }
+    } catch (e: SecurityException) {
+      // TODO: error handling
     }
   }
 
@@ -51,6 +67,7 @@ fun PermissionsCheckEffect(
             launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
           }
         }
+        is LocationEvents.FetchLocation -> getLastLocation()
       }
     }
   }

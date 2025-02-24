@@ -13,7 +13,9 @@ import com.adyen.android.assignment.model.Venue
 import com.adyen.android.assignment.prefs.AppPreferences
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
@@ -42,15 +44,18 @@ class MainRepository(
 ) {
   // ideally needs to be constructor injection as well, but it's too complicated to setup DI for the assignment
   private val venueDao: VenueDao by lazy { ServiceLocator.venueDao }
+  private val locationUpdates = MutableSharedFlow<Position>(
+    extraBufferCapacity = 1,
+    onBufferOverflow = BufferOverflow.DROP_OLDEST
+  )
   private var lastUserLocation: Position? = null
 
-  suspend fun getUserLocation(): Position {
-    return withContext(dispatcherProvider.io) {
-      delay(500)
-      val location = Position(52.379189, 4.899431)
-      lastUserLocation = location
-      location
-    }
+  fun listenToLocationUpdates(): Flow<Position> = locationUpdates
+
+  fun updateLocation(position: Position) {
+    lastUserLocation = position
+    val result = locationUpdates.tryEmit(position)
+    println(">> Send position successfully: $position, result: $result")
   }
 
   suspend fun getVenues(): Result<List<Venue>> = try {
@@ -78,12 +83,6 @@ class MainRepository(
     }
   }
 
-  suspend fun isLocationAllowed(): Boolean {
-    return withContext(dispatcherProvider.io) {
-      appPreferences.isLocationAllowed().first()
-    }
-  }
-
   fun listenToLocationAllowedChanges() = appPreferences.isLocationAllowed()
 
   fun listenToPermissionRequestStatusChanges() = appPreferences.getPermissionRequestStatus()
@@ -96,7 +95,7 @@ class MainRepository(
 
   private suspend fun fetchVenuesFromApiAndSave() {
     return withContext(dispatcherProvider.io) {
-      val location = lastUserLocation ?: getUserLocation()
+      val location = lastUserLocation ?: listenToLocationUpdates().first()
 
       val query = VenueRecommendationsQueryBuilder()
         .setLatitudeLongitude(location.lat, location.lng)

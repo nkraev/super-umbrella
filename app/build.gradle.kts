@@ -67,6 +67,7 @@ dependencies {
   implementation(libs.androidx.datastore.preferences)
   implementation(libs.coil.compose)
   implementation(libs.coil.network.okhttp)
+  implementation(libs.play.services.location)
 
   implementation(libs.retrofit)
   implementation(libs.converter.moshi)
