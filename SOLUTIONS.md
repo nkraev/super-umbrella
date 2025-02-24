@@ -55,5 +55,11 @@ Dependency injection - N/A
 * Fetching location and venues should ideally be a responsibility of separate `DataSource`s and repository would just aggregate them
   * We'll skip it for now
 
+## Closing notes
+Overall i really enjoyed working on this assignment. Haven't had the opportunity to start a new project in a while, so it was refreshing.
+Total time spent: around 8 hours on and off.
+Looking forward to the feedback and the next steps, if any :)
+Thanks!
+
 ## Links, sources
 [1] The Greedy Coin Change Problem - https://arxiv.org/pdf/2411.18137v1

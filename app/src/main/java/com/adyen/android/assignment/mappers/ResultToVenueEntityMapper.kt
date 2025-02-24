@@ -4,12 +4,8 @@ import com.adyen.android.assignment.api.model.Location
 import com.adyen.android.assignment.api.model.Main
 import com.adyen.android.assignment.api.model.Result
 import com.adyen.android.assignment.db.VenueEntity
-import com.adyen.android.assignment.money.MoneyGenerator
-import com.adyen.android.assignment.money.RandomMoneyGenerator
 
-class ResultToVenueEntityMapper(
-  private val moneyGenerator: MoneyGenerator = RandomMoneyGenerator,
-) {
+class ResultToVenueEntityMapper() {
   fun map(result: Result): VenueEntity {
     return VenueEntity(
       distance = result.distance,
@@ -17,7 +13,7 @@ class ResultToVenueEntityMapper(
       name = result.name,
       timezone = result.timezone,
       categoryId = result.categories.firstOrNull()?.id ?: "",
-      registryBalance = moneyGenerator.generateRandomAmount(),
+      registryBalance = 0L,
       position = result.geocodes?.main?.mapPosition() ?: "0.0;0.0",
     )
   }

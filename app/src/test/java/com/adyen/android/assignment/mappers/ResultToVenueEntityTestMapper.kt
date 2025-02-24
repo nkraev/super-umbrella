@@ -4,9 +4,7 @@ import com.adyen.android.assignment.api.model.Category
 import com.adyen.android.assignment.api.model.Icon
 import com.adyen.android.assignment.api.model.Location
 import com.adyen.android.assignment.api.model.Result
-import com.adyen.android.assignment.money.MoneyGenerator
 import io.mockk.every
-import io.mockk.mockk
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -14,12 +12,10 @@ import org.junit.Test
 class ResultToVenueEntityMapperTest {
 
   private lateinit var mapper: ResultToVenueEntityMapper
-  private lateinit var mockMoneyGenerator: MoneyGenerator
 
   @Before
   fun setUp() {
-    mockMoneyGenerator = mockk()
-    mapper = ResultToVenueEntityMapper(mockMoneyGenerator)
+    mapper = ResultToVenueEntityMapper()
   }
 
   @Test
@@ -51,9 +47,7 @@ class ResultToVenueEntityMapperTest {
     )
     val expectedLocation = "Stationsplein 15, Amsterdam, 1012 AB, NL"
     val expectedCategoryId = "19047"
-    val expectedRegistryBalance = 100L
-
-    every { mockMoneyGenerator.generateRandomAmount() } returns expectedRegistryBalance
+    val expectedRegistryBalance = 0L
 
     // Act
     val venueEntity = mapper.map(result)
@@ -87,9 +81,7 @@ class ResultToVenueEntityMapperTest {
     )
     val expectedLocation = "Teststraat 1, Brussels, 1000, BE"
     val expectedCategoryId = ""
-    val expectedRegistryBalance = 200L
-
-    every { mockMoneyGenerator.generateRandomAmount() } returns expectedRegistryBalance
+    val expectedRegistryBalance = 0L
 
     // Act
     val venueEntity = mapper.map(result)
