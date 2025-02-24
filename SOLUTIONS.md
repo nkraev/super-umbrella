@@ -27,16 +27,10 @@ To limit the scope a little bit i decided to do the following.
 
 Application would mainly consist of a map, where the pins from the API will be displayed. 
 Clicking a pin would open the bottom sheet window with the short information about the location.
-It will also contain a big button "Purchase", which will open a new screen with venue details and 'menu'.
+It will also contain a big button "Purchase", which is currently inoperable.
 
-Venue menu will contain a list of items, prices and a counter for each item.
-  * We'll skip the cart for now, as it would require a lot of additional work
-Users would be able to purchase items by the button below, and we'll utilize the `CashRegister` class to handle payments.
-  * On payment, we'll show a modal with the cash register that user currently has and the ability to pay with it using buttons. 
-  * As soon as the user collects a necessary amount to pay, we attempt the transaction. 
-
-Users would also be able to add money to their cash register by clicking the "Add money" floating button. 
-  * This will open the same modal as the payment, but with the ability to add money to the register.
+I wanted to add the functionality of buying stuff using the `CashRegister` class that was built before, but i wanted to constrain myself to a one day of work. 
+My estimation that a new screen with buy functionality would take around 4 more hours, so i decided to skip it for now.
 
 ### Nice to haves
 
