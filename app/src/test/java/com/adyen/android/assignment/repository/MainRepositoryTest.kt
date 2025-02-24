@@ -149,6 +149,10 @@ class MainRepositoryTest {
       category = VenueCategory(id = "", icon = "", type = ""),
       position = Position(52.379189, 4.899431)
     )
+    val expectedResult = VenueLoadResult(
+      venues = listOf(venue),
+      source = "API"
+    )
 
     val mockCall = mockk<Call<ResponseWrapper>>()
     every { mockCall.execute() } returns RetrofitResponse.success(response)
@@ -173,6 +177,7 @@ class MainRepositoryTest {
     every { mockEntityToVenueMapper.map(any()) } returns venue
 
     // Act
+    repository.updateLocation(Position(52.379189, 4.899431))
     val venuesResult = repository.getVenues()
 
     // Assert
@@ -180,7 +185,7 @@ class MainRepositoryTest {
     coVerify { mockVenueDao.saveAllCategories(listOf(venueCategoryEntity)) }
     coVerify { mockVenueDao.saveAllVenues(listOf(venueEntity)) }
     coVerify { mockAppPreferences.setLastFetchedApiTimestamp(currentTime) }
-    assertEquals(listOf(venue), venuesResult.getOrNull())
+    assertEquals(expectedResult, venuesResult.getOrNull())
   }
 
   @Test
@@ -207,6 +212,10 @@ class MainRepositoryTest {
       category = VenueCategory(id = "", icon = "", type = ""),
       position = Position(23.33, 45.66)
     )
+    val expectedResult = VenueLoadResult(
+      venues = listOf(venue),
+      source = "Database"
+    )
 
     every { systemTimeProvider() } returns currentTime
     coEvery { mockAppPreferences.getLastFetchedApiTimestamp() } returns lastFetchedTimestamp
@@ -223,7 +232,7 @@ class MainRepositoryTest {
 
     // Assert
     coVerify(exactly = 0) { mockPlacesService.getVenueRecommendations(any()) }
-    assertEquals(listOf(venue), venuesResult.getOrNull())
+    assertEquals(expectedResult, venuesResult.getOrNull())
   }
 
   @Test

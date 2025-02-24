@@ -9,6 +9,9 @@ import com.adyen.android.assignment.model.PermissionRequestStatus
 import com.adyen.android.assignment.model.Venue
 import com.adyen.android.assignment.repository.MainRepository
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -37,6 +40,11 @@ sealed class MainViewState {
   ) : MainViewState()
 }
 
+sealed class MainViewEvents {
+  data class Message(val message: String) : MainViewEvents()
+  data class LoadingError(val message: String) : MainViewEvents()
+}
+
 class MainViewModel(
   private val repository: MainRepository = ServiceLocator.mainRepository,
   private val mapper: PositionToLatLngMapper = PositionToLatLngMapper,
@@ -44,6 +52,12 @@ class MainViewModel(
   private val _state =
     MutableStateFlow<MainViewState>(MainViewState.Loading)
   val state: StateFlow<MainViewState> = _state
+
+  private val _events = MutableSharedFlow<MainViewEvents>(
+    extraBufferCapacity = 1,
+    onBufferOverflow = BufferOverflow.DROP_OLDEST
+  )
+  val events: Flow<MainViewEvents> = _events
 
   init {
     viewModelScope.launch {
@@ -76,10 +90,13 @@ class MainViewModel(
           _state.value = MainViewState.Ready(position)
 
           repository.getVenues().fold(
-            onSuccess = { venues ->
-              _state.value = MainViewState.Ready(position, VenuesState.Loaded(venues))
+            onSuccess = { result ->
+              _state.value = MainViewState.Ready(position, VenuesState.Loaded(result.venues))
+              _events.tryEmit(MainViewEvents.Message("Loaded ${result.venues.size} venues from ${result.source}"))
             },
-            onFailure = { /* TODO: error handling */ }
+            onFailure = {
+              _events.tryEmit(MainViewEvents.LoadingError("Failed to load venues"))
+            }
           )
         }
     }

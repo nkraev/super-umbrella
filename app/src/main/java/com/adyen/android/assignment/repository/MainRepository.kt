@@ -33,6 +33,11 @@ object DefaultDispatcherProvider : DispatcherProvider {
     get() = Dispatchers.Main
 }
 
+data class VenueLoadResult(
+  val venues: List<Venue>,
+  val source: String,
+)
+
 class MainRepository(
   private val dispatcherProvider: DispatcherProvider = DefaultDispatcherProvider,
   private val placesService: PlacesService = PlacesService.instance,
@@ -58,16 +63,26 @@ class MainRepository(
     println(">> Send position successfully: $position, result: $result")
   }
 
-  suspend fun getVenues(): Result<List<Venue>> = try {
+  suspend fun getVenues(): Result<VenueLoadResult> = try {
     val lastFetchedTimestamp = appPreferences.getLastFetchedApiTimestamp()
     val currentTime = systemTimeProvider()
     if (currentTime - lastFetchedTimestamp > VENUE_FETCH_INTERVAL) {
       fetchVenuesFromApiAndSave()
       appPreferences.setLastFetchedApiTimestamp(currentTime)
-      Result.success(fetchVenuesFromDb())
+      Result.success(
+        VenueLoadResult(
+          venues = fetchVenuesFromDb(),
+          source = "API",
+        )
+      )
     } else {
       val venues = fetchVenuesFromDb()
-      Result.success(venues)
+      Result.success(
+        VenueLoadResult(
+          venues = venues,
+          source = "Database",
+        )
+      )
     }
   } catch (e: Exception) {
     e.printStackTrace()
