@@ -1,5 +1,11 @@
 # Adyen Android Assignment
 
+### Solutions and steps are described in the [SOLUTIONS.md](SOLUTIONS.md) file
+
+Please don't forget to add `secrets.properties` file to the root of the project.
+
+-----------------------------
+
 This repository contains the coding challenge for candidates applying for a Senior Android role at Adyen.
 The Git repository is present in the zip file that you received and you can use it to show us your development process.
 
