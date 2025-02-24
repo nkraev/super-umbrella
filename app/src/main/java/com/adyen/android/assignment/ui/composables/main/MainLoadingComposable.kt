@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.ui.composables
+package com.adyen.android.assignment.ui.composables.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

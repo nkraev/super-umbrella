@@ -3,6 +3,7 @@ package com.adyen.android.assignment.di
 import android.content.Context
 import androidx.room.Room
 import com.adyen.android.assignment.db.VenueDatabase
+import com.adyen.android.assignment.repository.MainRepository
 
 object ServiceLocator {
   private lateinit var database: VenueDatabase
@@ -18,5 +19,11 @@ object ServiceLocator {
       .build()
 
     println(">> ServiceLocator initialized")
+  }
+
+  val mainRepository by lazy {
+    MainRepository(
+      systemTimeProvider = currentTimeMillis
+    )
   }
 }

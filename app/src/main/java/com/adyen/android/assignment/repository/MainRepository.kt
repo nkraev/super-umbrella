@@ -14,6 +14,7 @@ import com.adyen.android.assignment.prefs.AppPreferences
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 
@@ -69,6 +70,28 @@ class MainRepository(
       appPreferences.setLastFetchedApiTimestamp(0)
       Result.failure(e)
     } else Result.failure(FetchVenueException())
+  }
+
+  suspend fun saveUserAllowedLocationPrefs(isAllowed: Boolean = true) {
+    withContext(dispatcherProvider.io) {
+      appPreferences.setLocationAllowed(isAllowed)
+    }
+  }
+
+  suspend fun isLocationAllowed(): Boolean {
+    return withContext(dispatcherProvider.io) {
+      appPreferences.isLocationAllowed().first()
+    }
+  }
+
+  fun listenToLocationAllowedChanges() = appPreferences.isLocationAllowed()
+
+  fun listenToPermissionRequestStatusChanges() = appPreferences.getPermissionRequestStatus()
+
+  suspend fun savePermissionRequestStatus(status: String) {
+    withContext(dispatcherProvider.io) {
+      appPreferences.setPermissionRequestStatus(status)
+    }
   }
 
   private suspend fun fetchVenuesFromApiAndSave() {

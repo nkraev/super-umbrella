@@ -34,6 +34,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -242,7 +243,7 @@ class MainRepositoryTest {
     val httpException = HttpException(
       RetrofitResponse.error<Any>(
         404, ResponseBody.create(
-          MediaType.get("application/json"),
+          "application/json".toMediaType(),
           "{\"error\":\"Not Found\"}"
         )
       )

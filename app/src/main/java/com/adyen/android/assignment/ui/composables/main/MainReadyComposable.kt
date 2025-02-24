@@ -1,10 +1,6 @@
-package com.adyen.android.assignment.ui.composables
+package com.adyen.android.assignment.ui.composables.main
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.adyen.android.assignment.model.Venue
+import com.adyen.android.assignment.ui.composables.BottomSheetVenueInformation
 import com.adyen.android.assignment.ui.composables.utils.mapVenuesToMarker
 import com.adyen.android.assignment.viewmodel.MainViewModel
 import com.adyen.android.assignment.viewmodel.MainViewState
@@ -48,15 +45,7 @@ fun MainReadyComposable(ready: MainViewState.Ready, viewModel: MainViewModel) {
     BottomSheetVenueInformation(venue = selectedVenue!!, onDismiss = { selectedVenue = null })
   }
 
-  Scaffold(
-    floatingActionButton = {
-      FloatingActionButton(
-        onClick = viewModel::onTopUpClicked, // method reference is referentially transparent so we don't need to remember { .. } it
-      ) {
-        Icon(Icons.Outlined.ShoppingCart, contentDescription = "Top-up your balance")
-      }
-    },
-  ) { padding ->
+  Scaffold { padding ->
     GoogleMap(
       mapColorScheme = ComposeMapColorScheme.FOLLOW_SYSTEM,
       cameraPositionState = cameraPositionState,
